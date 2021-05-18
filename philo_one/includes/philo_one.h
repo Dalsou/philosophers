@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/05/07 16:02:05 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/05/10 10:40:02 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_data
 */
 
 int			check_args(int argc, char **argv, t_data *data);
-int			print_return(char *err_msg);
 
 /*
 **	UTILS
@@ -47,6 +46,7 @@ int			print_return(char *err_msg);
 int			ft_isdigit(int c);
 bool		ft_onlydigit(char **str);
 int			ft_atoi(const char *str);
+int			ft_strlen(char *str);
 
 
 #endif

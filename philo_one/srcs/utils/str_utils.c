@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.c                                        :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:46:29 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/05/10 10:17:40 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/05/10 10:38:28 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/05/10 10:49:08 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int			main(int argc, char **argv)
+int			ft_strlen(char *str)
 {
-	t_data		data;
+	int i;
 
-	memset(&data, 0, sizeof(t_data));
-	if (check_args(argc, argv, &data) < 0)
-		return (-1);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
