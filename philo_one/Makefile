@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/07 11:16:22 by afoulqui          #+#    #+#              #
-#    Updated: 2021/05/10 10:39:38 by afoulqui         ###   ########.fr        #
+#    Updated: 2021/06/07 15:28:36 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,14 @@ NAME		=	philo_one
 
 SRC_LST		=	philo_one.c \
 				check_args.c \
+				routine.c \
+				display.c \
+				clean.c \
+				check_status.c \
 				int_utils.c \
-				str_utils.c
+				str_utils.c \
+				time.c \
+				print.c
 
 SRC_DIR		=	$(shell find srcs -type d)
 INC_DIR		=	$(shell find includes -type d)

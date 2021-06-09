@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 10:38:28 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/04 17:35:53 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/06/04 15:31:05 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/06/07 16:01:09 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int			ft_strlen(char *str)
+long long	get_time(void)
 {
-	int i;
+	struct timeval	tmp_time;
+	long long		time;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	gettimeofday(&tmp_time, NULL);
+	time = tmp_time.tv_sec * 1000 + tmp_time.tv_usec / 1000;
+	return (time);
+}
+
+void	my_usleep(long long time)
+{
+	long long 		stop;
+
+	stop = get_time() + time;
+	while (get_time() < stop)
+		usleep (1);
 }
