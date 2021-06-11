@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 14:59:45 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/05/10 10:39:01 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/06/10 11:26:35 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/06/10 11:32:21 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo.h"
 
 bool		ft_onlydigit(char **str)
 {

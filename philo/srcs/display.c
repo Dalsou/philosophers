@@ -5,44 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 16:38:14 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/07 17:59:41 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/06/11 15:17:04 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo.h"
 
 static char		*find_msg(int state)
 {
 	if (state == FORK)
-		return (" : has taken a fork.\n");
+		return (" : has taken a fork\n");
 	if (state == EAT)
-		return (" : is eating.\n");
+		return (" : is eating\n");
 	if (state == SLEEP)
-		return (" : is sleeping.\n");
+		return (" : is sleeping\n");
 	if (state == THINK)
-		return (" : is thinking.\n");
+		return (" : is thinking\n");
 	if (state == DEAD)
-		return (" : has died.\n");
-	return ("finish.\n");
+		return (" : has died\n");
+	return (NULL);
 }
 
 void			display(t_phi *phi, int state)
 {
-	long long		time;
+	struct timeval	now;
 
+	gettimeofday(&now, NULL);
 	if (state == END)
-	{
-		ft_putstr("All philosophers have eaten ");
-		ft_putnbr(phi->data->nbr_must_eat);
-		ft_putstr(" time(s).\n");
-	}
+		printf("All philosophers have eaten %d time(s)\n", g_data[LIMIT_MEAL]);
 	else
-	{
-		time = get_time() - phi->data->init_time;
-		ft_putnbr((long)time);
-		ft_putstr("\tPhilosoper_");
-		ft_putnbr(phi->id);
-		ft_putstr(find_msg(state));
-	}
+		printf("%d \tPhilosopher_%d %s", chrono(&g_saved_time,
+		&now), phi->id + 1, find_msg(state));
 }

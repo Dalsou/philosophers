@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/09 09:41:18 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/06/10 10:43:26 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/06/11 16:12:50 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE
-# define PHILO_ONE
+#ifndef PHILO_H
+# define PHILO_H
 
 #include <string.h>
 #include <stdio.h>
@@ -31,57 +31,48 @@ typedef int bool;
 # define DEAD 5
 # define END 6
 
+# define N_PHI 0
+# define T_DIE 1
+# define T_EAT 2
+# define T_SLEEP 3
+# define LIMIT_MEAL 4
+
+int				g_data[5];
+int				g_meals;
+struct timeval	g_saved_time;
+pthread_mutex_t *g_forks;
+pthread_mutex_t g_msg;
+pthread_mutex_t g_checker;
+pthread_mutex_t	g_watchdog;
+
 typedef struct s_phi
 {
 	int					id;
 	int					nb_meals;
-	long long	 		start_time;
+	struct timeval	 	start_time;
 	pthread_mutex_t		*r_frk;
 	pthread_mutex_t		*l_frk;
 	pthread_t			main_thread;
-	pthread_t			status_thread;	
-	struct s_data		*data;
+	pthread_t			checker_thread;	
 }						t_phi;
-
-typedef struct s_data
-{
-	int					nbr_philo;
-	int					t_die;
-	int					t_eat;
-	int					t_sleep;
-	int					nbr_must_eat;
-	int					done;
-	long long 			init_time;
-	t_phi				*phi;
-	pthread_mutex_t		*msg;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		*status;
-}						t_data;
 
 /*
 **	MAIN
 */
 
-int			check_args(int argc, char **argv, t_data *data);
-void		*init_thread(t_data *data);
-void		*routine(void *args);
-void		display(t_phi *phi, int state);
-void		clean_all(t_data *data);
-void		*check_status(void *args);
-
+int				parse(int argc, char **argv, t_phi **phi);
+void			*routine(void *ptr);
+void			*check_status(void *ptr);
+void			display(t_phi *phi, int state);
 
 /*
 **	UTILS
 */
 
-int			ft_isdigit(int c);
-bool		ft_onlydigit(char **str);
-int			ft_atoi(const char *str);
-int			ft_strlen(char *str);
-void		ft_putchar(char c);
-void		ft_putnbr(long n);
-void		ft_putstr(char *str);
-long long	get_time(void);
-void		my_usleep(long long time);
+int				ft_isdigit(int c);
+bool			ft_onlydigit(char **str);
+int				ft_atoi(const char *str);
+void 			clear_all(t_phi *phi);
+int				chrono(struct timeval *a, struct timeval *b);
 
 #endif

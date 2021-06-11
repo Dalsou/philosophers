@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/07 10:23:44 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/09 09:42:12 by afoulqui         ###   ########.fr       */
+/*   Created: 2021/06/10 11:09:19 by afoulqui          #+#    #+#             */
+/*   Updated: 2021/06/11 16:07:04 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo.h"
 
-void		clean_all(t_data *data)
+int		main(int argc, char **argv)
 {
-	int		i;
+	int			i;
+	t_phi		*phi;
 
+	phi = NULL;
+	if (parse(argc, argv, &phi))
+		return (-1);
+	gettimeofday(&g_saved_time, NULL);
+	pthread_mutex_lock(&g_watchdog);
 	i = 0;
-	while (i < data->nbr_philo)
+	while (i < g_data[N_PHI])
 	{
-		pthread_mutex_destroy(&data->forks[i]);
+		pthread_create(&phi[i].main_thread, NULL, routine, (void *)&phi[i]);
 		i++;
 	}
-	free(data->forks);
-	pthread_mutex_destroy(data->msg);
-	free(data->msg);
-	pthread_mutex_destroy(data->status);
-	free(data->status);
-	free(data->phi);
+	pthread_mutex_lock(&g_watchdog);
+	clear_all(phi);
+	return (0);
 }
