@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:26:35 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/10 11:32:21 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:27:38 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool		ft_onlydigit(char **str)
+t_bool	ft_onlydigit(char **str)
 {
 	int	i;
 	int	j;
@@ -32,22 +32,22 @@ bool		ft_onlydigit(char **str)
 	return (TRUE);
 }
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int neg;
-	int res;
+	int	neg;
+	int	res;
 
 	neg = 1;
 	res = 0;
 	while (*str && (*str == ' ' || *str == '\f' || *str == '\t' || *str == '\n'
-		|| *str == '\r' || *str == '\v'))
+			|| *str == '\r' || *str == '\v'))
 		str++;
 	if (*str == '-')
 		neg = -1;

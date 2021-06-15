@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/11 15:17:04 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:29:34 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static char		*find_msg(int state)
+static char	*find_msg(int state)
 {
 	if (state == FORK)
 		return (" : has taken a fork\n");
@@ -27,7 +27,7 @@ static char		*find_msg(int state)
 	return (NULL);
 }
 
-void			display(t_phi *phi, int state)
+void	display(t_phi *phi, int state)
 {
 	struct timeval	now;
 
@@ -36,5 +36,5 @@ void			display(t_phi *phi, int state)
 		printf("All philosophers have eaten %d time(s)\n", g_data[LIMIT_MEAL]);
 	else
 		printf("%d \tPhilosopher_%d %s", chrono(&g_saved_time,
-		&now), phi->id + 1, find_msg(state));
+				&now), phi->id + 1, find_msg(state));
 }

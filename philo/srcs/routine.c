@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:30:19 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/11 16:37:21 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:36:52 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void 		*thinking(t_phi *phi)
+void	*thinking(t_phi *phi)
 {
 	pthread_mutex_lock(&g_msg);
 	display(phi, THINK);
@@ -20,7 +20,7 @@ void 		*thinking(t_phi *phi)
 	return (NULL);
 }
 
-void 		*sleeping(t_phi *phi)
+void	*sleeping(t_phi *phi)
 {
 	pthread_mutex_lock(&g_msg);
 	display(phi, SLEEP);
@@ -29,7 +29,7 @@ void 		*sleeping(t_phi *phi)
 	return (NULL);
 }	
 
-void		*eating(t_phi *phi)
+void	*eating(t_phi *phi)
 {
 	pthread_mutex_lock(phi->l_frk);
 	pthread_mutex_lock(phi->r_frk);
@@ -49,7 +49,7 @@ void		*eating(t_phi *phi)
 void	*routine(void *ptr)
 {
 	t_phi	*phi;
-	
+
 	phi = ptr;
 	pthread_create(&phi->checker_thread, NULL, check_status, (void *)phi);
 	while (1)

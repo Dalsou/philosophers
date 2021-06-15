@@ -6,16 +6,16 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:09:19 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/11 16:07:04 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:29:55 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int			i;
-	t_phi		*phi;
+	int		i;
+	t_phi	*phi;
 
 	phi = NULL;
 	if (parse(argc, argv, &phi))

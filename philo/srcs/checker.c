@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:31:55 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/11 16:16:34 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:28:40 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void		check_meals(t_phi *phi)
+void	check_meals(t_phi *phi)
 {
 	pthread_mutex_lock(&g_checker);
 	if (phi->nb_meals == g_data[LIMIT_MEAL])
@@ -29,7 +29,7 @@ void		check_meals(t_phi *phi)
 	}
 }
 
-void		check_liveness(t_phi *phi)
+void	check_liveness(t_phi *phi)
 {
 	struct timeval	now;
 	int				ms;
@@ -44,7 +44,7 @@ void		check_liveness(t_phi *phi)
 	}
 }
 
-void		*check_status(void *ptr)
+void	*check_status(void *ptr)
 {
 	t_phi			*phi;
 

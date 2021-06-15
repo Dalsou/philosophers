@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:20:10 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/11 16:13:34 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/06/15 10:35:45 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_phi			*init_phi()
+t_phi	*init_phi(void)
 {
 	t_phi	*phi;
 	int		i;
@@ -34,7 +34,7 @@ t_phi			*init_phi()
 	return (phi);
 }
 
-int			init_mutex()
+int	init_mutex(void)
 {
 	int		i;
 
@@ -59,24 +59,26 @@ static int	print_return(char *err_msg)
 	return (1);
 }
 
-int			parse(int argc, char **argv, t_phi **phi)
+int	parse(int argc, char **argv, t_phi **phi)
 {
 	if (argc < 5 || argc > 6)
 		return (print_return("wrong number of arguments"));
 	if (ft_onlydigit(argv) == FALSE)
 		return (print_return("only numbers are accepted as arguments"));
-	if ((g_data[N_PHI] = ft_atoi(argv[1])) < 2)
+	g_data[N_PHI] = ft_atoi(argv[1]);
+	if (g_data[N_PHI] < 2)
 		return (print_return("not enough philosophers"));
 	g_data[T_DIE] = ft_atoi(argv[2]);
 	g_data[T_EAT] = ft_atoi(argv[3]);
 	g_data[T_SLEEP] = ft_atoi(argv[4]);
 	if (argc == 6 && argv[5] > 0)
 		g_data[LIMIT_MEAL] = ft_atoi(argv[5]);
-	else 
+	else
 		g_data[LIMIT_MEAL] = -1;
 	if (init_mutex())
 		return (1);
-	if (!(*phi = init_phi()))
+	*phi = init_phi();
+	if (*phi == NULL)
 		return (1);
 	g_meals = 0;
 	return (0);
