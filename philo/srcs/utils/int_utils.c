@@ -6,11 +6,21 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:26:35 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:27:38 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/13 14:55:53 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 t_bool	ft_onlydigit(char **str)
 {
@@ -60,3 +70,26 @@ int	ft_atoi(const char *str)
 	}
 	return (res * neg);
 }
+
+void	ft_putnbr(int n)
+{
+	long lnbr;
+	char c;
+
+	lnbr = n;
+	if (lnbr >= -2147483648 && lnbr <= 2147483648)
+	{
+		if (lnbr > 9)
+		{
+			ft_putnbr(lnbr / 10	);
+			c = lnbr % 10 + '0';
+			write(1, &c, 1);
+		}
+		else
+		{
+			c = lnbr + '0';
+			write(1, &c, 1);
+		}
+	}
+}
+

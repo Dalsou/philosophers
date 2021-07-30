@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:43:26 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:23:14 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/29 11:56:21 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,37 @@ typedef int		t_bool;
 # define T_SLEEP 3
 # define LIMIT_MEAL 4
 
-int				g_data[5];
-int				g_meals;
-struct timeval	g_saved_time;
-pthread_mutex_t	*g_forks;
-pthread_mutex_t	g_msg;
-pthread_mutex_t	g_checker;
-pthread_mutex_t	g_watchdog;
+typedef struct s_table
+{
+	int				data[5];
+	int				meals;
+	long int		saved_time;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	msg;
+	pthread_mutex_t	checker;
+	pthread_mutex_t	watchdog;
+}					t_table;
 
-typedef struct s_phi
+typedef struct s_philo
 {
 	int				id;
 	int				nb_meals;
-	struct timeval	start_time;
+	long int		start_time;
 	pthread_mutex_t	*r_frk;
 	pthread_mutex_t	*l_frk;
 	pthread_t		main_thread;
-	pthread_t		checker_thread;	
-}					t_phi;
+	pthread_t		checker_thread;
+	t_table			*table;
+}					t_philo;
 
 /*
 **	MAIN
 */
 
-int					parse(int argc, char **argv, t_phi **phi);
+int					parse(int argc, char **argv, t_philo **philo, t_table *table);
 void				*routine(void *ptr);
 void				*check_status(void *ptr);
-void				display(t_phi *phi, int state);
+void				display(t_philo *philo, int status);
 
 /*
 **	UTILS
@@ -72,7 +76,10 @@ void				display(t_phi *phi, int state);
 int					ft_isdigit(int c);
 t_bool				ft_onlydigit(char **str);
 int					ft_atoi(const char *str);
-void				clear_all(t_phi *phi);
-int					chrono(struct timeval *a, struct timeval *b);
+void				clear_all(t_philo **philo, t_table *table);
+void				ft_putnbr(int n);
+int					ft_strlen(char *str);
+void				ft_sleep(int time_sleep);
+long int			get_time(void);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 10:42:15 by afoulqui          #+#    #+#              #
-#    Updated: 2021/06/10 16:50:51 by afoulqui         ###   ########.fr        #
+#    Updated: 2021/07/30 09:46:31 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ vpath %.h $(foreach dir, $(INC_DIR)/, $(dir):)
 
 CC			=	gcc
 
-CFLAG		=	-Wall -Werror -Wextra
+CFLAG		=	-Wall -Werror -Wextra -g -pthread
 IFLAG		=	$(foreach dir, $(INC_DIR), -I $(dir) )
 
 # ----------------- #

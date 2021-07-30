@@ -6,35 +6,44 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:43 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:25:47 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:26:33 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	chrono(struct timeval *a, struct timeval *b)
+long int		get_time(void)
 {
-	int	sec;
-	int	u_sec;
+	struct timeval	now;
+	long int		now_int;
 
-	sec = (b->tv_sec - a->tv_sec) * 1000;
-	u_sec = (b->tv_usec - a->tv_usec) / 1000;
-	return (sec + u_sec);
+	gettimeofday(&now, NULL);
+	now_int = (now.tv_sec * 1000) + (now.tv_usec / 1000);
+	return (now_int);
 }
 
-void 	clear_all(t_phi *phi)
+void	ft_sleep(int time_sleep)
+{
+	long int	time;
+
+	time = get_time();
+	while ((get_time() - time) < time_sleep)
+		usleep(time_sleep / 10);
+}
+
+void 	clear_all(t_philo **philo, t_table *table)
 {
 	int	i;
 
 	i = 0;
-	while (i < g_data[N_PHI])
+	while (i < table->data[N_PHI])
 	{
-		pthread_mutex_destroy(&g_forks[i]);
+		pthread_mutex_destroy(&table->forks[i]);
 		i++;
 	}
-	free(g_forks);
-	pthread_mutex_destroy(&g_msg);
-	pthread_mutex_destroy(&g_checker);
-	pthread_mutex_destroy(&g_watchdog);
-	free(phi);
+	free(table->forks);
+	pthread_mutex_destroy(&table->msg);
+	pthread_mutex_destroy(&table->checker);
+	pthread_mutex_destroy(&table->watchdog);
+	free(*philo);
 }

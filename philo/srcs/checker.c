@@ -6,53 +6,55 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:31:55 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:28:40 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:31:30 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	check_meals(t_phi *phi)
+void	check_meals(t_philo *philo)
 {
-	pthread_mutex_lock(&g_checker);
-	if (phi->nb_meals == g_data[LIMIT_MEAL])
+	pthread_mutex_lock(&philo->table->checker);
+	if (philo->nb_meals == philo->table->data[LIMIT_MEAL])
 	{
-		g_meals++;
-		phi->nb_meals++;
+		philo->table->meals++;
+		philo->nb_meals++;
 	}
-	pthread_mutex_unlock(&g_checker);
-	if (g_meals == g_data[N_PHI])
+	pthread_mutex_unlock(&philo->table->checker);
+	if (philo->table->meals == philo->table->data[N_PHI])
 	{
-		pthread_mutex_lock(&g_msg);
-		display(phi, END);
-		pthread_mutex_unlock(&g_watchdog);
+		pthread_mutex_lock(&philo->table->msg);
+		display(philo, END);
+		pthread_mutex_unlock(&philo->table->watchdog);
 	}
 }
 
-void	check_liveness(t_phi *phi)
+void	check_liveness(t_philo *philo)
 {
-	struct timeval	now;
-	int				ms;
+	int		now;
+	int		time;
 
-	gettimeofday(&now, NULL);
-	ms = chrono(&phi->start_time, &now);
-	if (ms >= g_data[T_DIE])
+	now = get_time();
+	time = now - philo->start_time;
+	if (time > philo->table->data[T_DIE])
 	{
-		pthread_mutex_lock(&g_msg);
-		display(phi, DEAD);
-		pthread_mutex_unlock(&g_watchdog);
+		pthread_mutex_lock(&philo->table->msg);
+		display(philo, DEAD);
+		pthread_mutex_unlock(&philo->table->watchdog);
 	}
 }
 
 void	*check_status(void *ptr)
 {
-	t_phi			*phi;
+	t_philo	*philo;
 
-	phi = (t_phi *)ptr;
+	philo = (t_philo *)ptr;
+	ft_sleep(philo->table->data[T_DIE] + 1);
 	while (1)
 	{
-		check_meals(phi);
-		check_liveness(phi);
+		if (philo->table->data[LIMIT_MEAL] != -1)
+			check_meals(philo);
+		check_liveness(philo);
 	}
 	return (NULL);
 }

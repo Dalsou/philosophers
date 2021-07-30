@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:09:19 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:29:55 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/29 16:21:58 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 int	main(int argc, char **argv)
 {
 	int		i;
-	t_phi	*phi;
+	t_philo	*philo;
+	t_table	table;
 
-	phi = NULL;
-	if (parse(argc, argv, &phi))
+	if (parse(argc, argv, &philo, &table))
 		return (-1);
-	gettimeofday(&g_saved_time, NULL);
-	pthread_mutex_lock(&g_watchdog);
+	table.saved_time = get_time();
+	pthread_mutex_lock(&table.watchdog);
 	i = 0;
-	while (i < g_data[N_PHI])
+	while (i < table.data[N_PHI])
 	{
-		pthread_create(&phi[i].main_thread, NULL, routine, (void *)&phi[i]);
+		pthread_create(&philo[i].main_thread, NULL, routine, (void *)&philo[i]);
 		i++;
 	}
-	pthread_mutex_lock(&g_watchdog);
-	clear_all(phi);
+	pthread_mutex_lock(&table.watchdog);
+	clear_all(&philo, &table);
 	return (0);
 }

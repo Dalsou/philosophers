@@ -6,56 +6,59 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:30:19 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/06/15 10:36:52 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:58:00 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*thinking(t_phi *phi)
+void	sleeping_thinking(t_philo *philo)
 {
-	pthread_mutex_lock(&g_msg);
-	display(phi, THINK);
-	pthread_mutex_unlock(&g_msg);
-	return (NULL);
+	pthread_mutex_lock(&philo->table->msg);
+	display(philo, SLEEP);
+	pthread_mutex_unlock(& philo->table->msg);
+	ft_sleep(philo->table->data[T_SLEEP]);
+	pthread_mutex_lock(&philo->table->msg);
+	display(philo, THINK);
+	pthread_mutex_unlock(& philo->table->msg);
 }
 
-void	*sleeping(t_phi *phi)
+void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&g_msg);
-	display(phi, SLEEP);
-	pthread_mutex_unlock(&g_msg);
-	usleep(g_data[T_SLEEP] * 1000);
-	return (NULL);
-}	
-
-void	*eating(t_phi *phi)
-{
-	pthread_mutex_lock(phi->l_frk);
-	pthread_mutex_lock(phi->r_frk);
-	pthread_mutex_lock(&g_msg);
-	phi->nb_meals++;
-	gettimeofday(&phi->start_time, NULL);
-	display(phi, FORK);
-	display(phi, FORK);
-	display(phi, EAT);
-	pthread_mutex_unlock(&g_msg);
-	usleep(g_data[T_EAT] * 1000);
-	pthread_mutex_unlock(phi->l_frk);
-	pthread_mutex_unlock(phi->r_frk);
-	return (NULL);
+	pthread_mutex_lock(philo->l_frk);
+	pthread_mutex_lock(&philo->table->msg);
+	display(philo, FORK);
+	pthread_mutex_unlock(&philo->table->msg);
+	if (!philo->r_frk)
+	{
+		ft_sleep(philo->table->data[T_DIE]);
+		return ;
+	}
+	pthread_mutex_lock(philo->r_frk);
+	pthread_mutex_lock(&philo->table->msg);
+	display(philo, FORK);
+	pthread_mutex_unlock(&philo->table->msg);
+	pthread_mutex_lock(&philo->table->msg);
+	display(philo, EAT);
+	pthread_mutex_unlock(&philo->table->msg);
+	philo->start_time = get_time();
+	philo->nb_meals++;
+	ft_sleep(philo->table->data[T_EAT]);
+	pthread_mutex_unlock(philo->l_frk);
+	pthread_mutex_unlock(philo->r_frk);
+	sleeping_thinking(philo);
 }
 
 void	*routine(void *ptr)
 {
-	t_phi	*phi;
+	t_philo	*philo;
 
-	phi = ptr;
-	pthread_create(&phi->checker_thread, NULL, check_status, (void *)phi);
+	philo = (t_philo *)ptr;
+	pthread_create(&philo->checker_thread, NULL, check_status, (void *)philo);
+	if (philo->id % 2 == 0)
+		ft_sleep(philo->table->data[T_EAT] / 10);
 	while (1)
 	{
-		eating(phi);
-		sleeping(phi);
-		thinking(phi);
+		eating(philo);
 	}
 }
