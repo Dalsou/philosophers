@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:43 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/07/29 17:26:33 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/30 17:40:04 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int		get_time(void)
+long int	get_time(void)
 {
 	struct timeval	now;
 	long int		now_int;
@@ -43,7 +43,5 @@ void 	clear_all(t_philo **philo, t_table *table)
 	}
 	free(table->forks);
 	pthread_mutex_destroy(&table->msg);
-	pthread_mutex_destroy(&table->checker);
-	pthread_mutex_destroy(&table->watchdog);
 	free(*philo);
 }

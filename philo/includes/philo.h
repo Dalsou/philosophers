@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:43:26 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/07/29 11:56:21 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/07/30 18:00:17 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct s_table
 	int				data[5];
 	int				meals;
 	long int		saved_time;
+	t_bool			stop;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 	pthread_mutex_t	checker;
-	pthread_mutex_t	watchdog;
 }					t_table;
 
 typedef struct s_philo
@@ -55,6 +55,7 @@ typedef struct s_philo
 	long int		start_time;
 	pthread_mutex_t	*r_frk;
 	pthread_mutex_t	*l_frk;
+	pthread_mutex_t	time_leat;
 	pthread_t		main_thread;
 	pthread_t		checker_thread;
 	t_table			*table;
@@ -77,7 +78,7 @@ int					ft_isdigit(int c);
 t_bool				ft_onlydigit(char **str);
 int					ft_atoi(const char *str);
 void				clear_all(t_philo **philo, t_table *table);
-void				ft_putnbr(int n);
+void				ft_putnbr(long int n);
 int					ft_strlen(char *str);
 void				ft_sleep(int time_sleep);
 long int			get_time(void);

@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/10 10:42:15 by afoulqui          #+#    #+#              #
-#    Updated: 2021/07/30 09:46:31 by afoulqui         ###   ########.fr        #
+#    Updated: 2021/07/30 14:50:20 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ NAME		=	philo
 SRC_LST		=	main.c \
 				parse.c \
 				routine.c \
-				checker.c \
 				display.c \
 				int_utils.c \
 				philo_utils.c

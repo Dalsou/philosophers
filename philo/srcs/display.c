@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/07/29 11:58:29 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/02 10:46:57 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,22 @@ static char	*find_msg(int state)
 
 void	display(t_philo *philo, int status)
 {
-	long int	now;
-
-	now = 0;
+	pthread_mutex_lock(&philo->table->msg);
 	if (status == END)
 	{
 		write(1, "All philosophers have eaten ", 29);
 		ft_putnbr(philo->table->data[LIMIT_MEAL]);
 		write(1, " time(s)\n", 10);
+		philo->table->stop = TRUE;
 	}
 	else
 	{
-		now = get_time();
-		ft_putnbr((int)(now - philo->table->saved_time));
+		ft_putnbr(get_time() - philo->table->saved_time);
 		write(1, "\tPhilosopher_", 14);
 		ft_putnbr(philo->id);
 		write(1, find_msg(status), ft_strlen(find_msg(status)));
+		if (status == DEAD)
+			philo->table->stop = TRUE;
 	}
+	pthread_mutex_unlock(&philo->table->msg);
 }

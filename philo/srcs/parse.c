@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:20:10 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/07/29 16:21:00 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/02 11:07:11 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_philo	*init_philo(t_table *table)
 		philo[i].nb_meals = 0;
 		philo[i].l_frk = &table->forks[i];
 		philo[i].r_frk = &table->forks[(i + 1) % table->data[N_PHI]];
+		pthread_mutex_init(&philo[i].time_leat, NULL);
 		philo[i].table = table;
 		i++;
 	}
@@ -48,7 +49,6 @@ int	init_mutex(t_table *table)
 	}
 	pthread_mutex_init(&table->msg, NULL);
 	pthread_mutex_init(&table->checker, NULL);
-	pthread_mutex_init(&table->watchdog, NULL);
 	return (0);
 }
 
@@ -76,11 +76,12 @@ int	parse(int argc, char **argv, t_philo **philo, t_table *table)
 		table->data[LIMIT_MEAL] = ft_atoi(argv[5]);
 	else
 		table->data[LIMIT_MEAL] = -1;
+	table->meals = 0;
+	table->stop = FALSE;
 	if (init_mutex(table))
 		return (1);
 	*philo = init_philo(table);
 	if (*philo == NULL)
 		return (1);
-	table->meals = 0;
 	return (0);
 }
