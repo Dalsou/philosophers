@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:20:10 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/02 11:07:11 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:57:35 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_philo	*init_philo(t_table *table)
 		philo[i].nb_meals = 0;
 		philo[i].l_frk = &table->forks[i];
 		philo[i].r_frk = &table->forks[(i + 1) % table->data[N_PHI]];
-		pthread_mutex_init(&philo[i].time_leat, NULL);
 		philo[i].table = table;
 		i++;
 	}
