@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:26:35 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/07/30 18:00:25 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:26:34 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	ft_atoi(const char *str)
 
 void	ft_putnbr(long int n)
 {
-	char c;
+	char	c;
 
 	if (n > 9)
 	{
-		ft_putnbr(n / 10	);
+		ft_putnbr(n / 10);
 		c = n % 10 + '0';
 		write(1, &c, 1);
 	}
@@ -87,4 +87,3 @@ void	ft_putnbr(long int n)
 		write(1, &c, 1);
 	}
 }
-

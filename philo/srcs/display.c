@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/02 18:44:12 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:26:47 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*find_msg(int status)
 	if (status == THINK)
 		return (" is thinking\n");
 	if (status == DEAD)
-		return (" HAS DIED\n");
+		return (" has died\n");
 	return (NULL);
 }
 

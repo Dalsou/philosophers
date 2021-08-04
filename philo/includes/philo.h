@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:43:26 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/04 14:16:14 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:24:11 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_philo
 
 int					parse(int argc, char **argv, t_table *table);
 void				*routine(void *ptr);
-int					check_death(t_table *table);
+void				*check_liveness(void *ptr);
 void				display(t_philo *philo, int status);
 
 /*

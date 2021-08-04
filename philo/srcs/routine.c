@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:30:19 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/04 14:12:00 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:26:03 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void	sleeping_thinking(t_philo *philo)
 	display(philo, SLEEP);
 	ft_sleep(philo->table->data[T_SLEEP]);
 	display(philo, THINK);
+}
+
+void	check_meals(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->checker);
+	philo->table->meals++;
+	philo->nb_meals++;
+	if (philo->table->meals == philo->table->data[N_PHI])
+		display(philo, END);
+	pthread_mutex_unlock(&philo->table->checker);
 }
 
 void	eating(t_philo *philo)
@@ -38,20 +48,6 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(philo->l_frk);
 }
 
-void	*check_liveness(void *ptr)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)ptr;
-	ft_sleep(philo->table->data[T_DIE] + 1);
-	pthread_mutex_lock(&philo->table->checker);
-	if (philo->table->stop == FALSE
-		&& (get_time() - philo->start_time >= (long)philo->table->data[T_DIE]))
-		display(philo, DEAD);
-	pthread_mutex_unlock(&philo->table->checker);
-	return (NULL);
-}
-
 void	*routine(void *ptr)
 {
 	t_philo	*philo;
@@ -61,21 +57,11 @@ void	*routine(void *ptr)
 		ft_sleep(philo->table->data[T_EAT] / 10);
 	while (philo->table->stop == FALSE)
 	{
-		if (pthread_create(&philo->checker_thread, NULL, &check_liveness, philo))
-			return (NULL);
 		eating(philo);
 		if (philo->nb_meals == philo->table->data[LIMIT_MEAL])
-		{
-			pthread_mutex_lock(&philo->table->checker);
-			philo->table->meals++;
-			philo->nb_meals++;
-			if (philo->table->meals == philo->table->data[LIMIT_MEAL])
-				display(philo, END);
-			pthread_mutex_unlock(&philo->table->checker);
-		}
+			check_meals(philo);
 		if (philo->table->stop == FALSE)
 			sleeping_thinking(philo);
-		pthread_detach(philo->checker_thread);
 	}
 	return (NULL);
 }
