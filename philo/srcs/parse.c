@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:20:10 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/02 16:57:35 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 11:26:57 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	print_return(char *err_msg)
 	return (1);
 }
 
-int	parse(int argc, char **argv, t_philo **philo, t_table *table)
+int	parse(int argc, char **argv, t_table *table)
 {
 	if (argc < 5 || argc > 6)
 		return (print_return("wrong number of arguments"));
@@ -79,8 +79,8 @@ int	parse(int argc, char **argv, t_philo **philo, t_table *table)
 	table->stop = FALSE;
 	if (init_mutex(table))
 		return (1);
-	*philo = init_philo(table);
-	if (*philo == NULL)
+	table->philo = init_philo(table);
+	if (table->philo == NULL)
 		return (1);
 	return (0);
 }

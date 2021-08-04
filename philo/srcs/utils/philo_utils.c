@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:43 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/02 18:14:05 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:14:00 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_sleep(int time_sleep)
 		usleep(time_sleep / 10);
 }
 
-void 	clear_all(t_philo **philo, t_table *table)
+void 	clear_all(t_table *table)
 {
 	int	i;
 
@@ -44,5 +44,5 @@ void 	clear_all(t_philo **philo, t_table *table)
 		i++;
 	}
 	free(table->forks);
-	free(*philo);
+	free(table->philo);
 }

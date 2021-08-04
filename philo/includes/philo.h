@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:43:26 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/02 16:58:57 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:16:14 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_table
 	pthread_mutex_t	msg;
 	pthread_mutex_t	checker;
 	pthread_mutex_t	death;
+	struct s_philo	*philo;
 }					t_table;
 
 typedef struct s_philo
@@ -56,7 +57,6 @@ typedef struct s_philo
 	long int		start_time;
 	pthread_mutex_t	*r_frk;
 	pthread_mutex_t	*l_frk;
-	pthread_t		main_thread;
 	pthread_t		checker_thread;
 	t_table			*table;
 }					t_philo;
@@ -65,7 +65,7 @@ typedef struct s_philo
 **	MAIN
 */
 
-int					parse(int argc, char **argv, t_philo **philo, t_table *table);
+int					parse(int argc, char **argv, t_table *table);
 void				*routine(void *ptr);
 int					check_death(t_table *table);
 void				display(t_philo *philo, int status);
@@ -77,7 +77,7 @@ void				display(t_philo *philo, int status);
 int					ft_isdigit(int c);
 t_bool				ft_onlydigit(char **str);
 int					ft_atoi(const char *str);
-void				clear_all(t_philo **philo, t_table *table);
+void				clear_all(t_table *table);
 void				ft_putnbr(long int n);
 int					ft_strlen(char *str);
 void				ft_sleep(int time_sleep);
