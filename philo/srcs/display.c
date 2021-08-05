@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/04 14:26:47 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/05 12:09:13 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*find_msg(int status)
 	if (status == THINK)
 		return (" is thinking\n");
 	if (status == DEAD)
-		return (" has died\n");
+		return (" died\n");
 	return (NULL);
 }
 
@@ -43,7 +43,7 @@ void	display(t_philo *philo, int status)
 		else
 		{
 			ft_putnbr(get_time() - philo->table->saved_time);
-			write(1, "\tPhilosopher_", 14);
+			write(1, " ", 1);
 			ft_putnbr(philo->id);
 			write(1, find_msg(status), ft_strlen(find_msg(status)));
 			if (status == DEAD)
