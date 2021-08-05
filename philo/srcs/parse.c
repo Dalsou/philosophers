@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:20:10 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/04 11:26:57 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/05 12:22:19 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	parse(int argc, char **argv, t_table *table)
 	if (ft_onlydigit(argv) == FALSE)
 		return (print_return("only numbers are accepted as arguments"));
 	table->data[N_PHI] = ft_atoi(argv[1]);
-	if (table->data[N_PHI] < 2)
+	if (table->data[N_PHI] < 1)
 		return (print_return("not enough philosophers"));
 	table->data[T_DIE] = ft_atoi(argv[2]);
 	table->data[T_EAT] = ft_atoi(argv[3]);
