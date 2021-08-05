@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:16:06 by afoulqui          #+#    #+#             */
-/*   Updated: 2021/08/05 12:09:13 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/08/05 14:11:34 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	display(t_philo *philo, int status)
 				return ;
 			}	
 		}
-		pthread_mutex_unlock(&philo->table->msg);
 	}
+	pthread_mutex_unlock(&philo->table->msg);
 }
